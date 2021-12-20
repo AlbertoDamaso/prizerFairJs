@@ -7,6 +7,7 @@ import addCamera from '../../assets/addCamera.png';
 import { useNavigation } from '@react-navigation/native';
 import { Background } from '../../components/Background';
 import { Input } from '../../components/Input';
+import { MaskInput } from '../../components/MaskInput';
 import { Button } from '../../components/Button';
 import { styles } from './styles';
 
@@ -80,7 +81,7 @@ export function Register(){
           value={email}
           onChangeText={ (text) => setEmail(text)}
         />
-        <Input placeholder="Data de Nascimento"
+        <MaskInput placeholder="Data de Nascimento"
           keyboardType="numeric"
           returnKeyType="next"
           value={dateN}
