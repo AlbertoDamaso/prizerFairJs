@@ -11,7 +11,7 @@ export const styles = StyleSheet.create({
     width: 350,
     height: 45,
     backgroundColor: theme.colors.secondaryMenos1,
-    color: theme.colors.dark,
+    color: theme.colors.secundaryMenos1,
     borderRadius: 5,
     fontFamily: theme.fonts.title500,
     fontSize: 19,

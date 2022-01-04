@@ -70,30 +70,39 @@ export function Register(){
       <View style={styles.areaInput}>
         <Input 
           placeholder="Nome"
+          placeholderTextColor="#7D7D7D"
           returnKeyType="next"
           onSubmitEditing={ () => Keyboard.dismiss() }
           value={name}
           onChangeText={ (text) => setName(text)}
         />
-        <Input placeholder="E-mail"
+        <Input 
+          placeholder="E-mail"
+          placeholderTextColor="#7D7D7D"
           keyboardType="email-address"
           returnKeyType="next"
           value={email}
           onChangeText={ (text) => setEmail(text)}
         />
-        <MaskInput placeholder="Data de Nascimento"
+        <MaskInput 
+          placeholder="Data de Nascimento"
+          placeholderTextColor="#7D7D7D"
           keyboardType="numeric"
           returnKeyType="next"
           value={dateN}
           onChangeText={ (text) => setDateN(text)}
         />
-        <Input placeholder="Senha"
+        <Input 
+          placeholder="Senha"
+          placeholderTextColor="#7D7D7D"
           returnKeyType="next"
           value={password}
           onChangeText={ (text) => setPassword(text)}
           secureTextEntry={true}
         />
-        <Input placeholder="Confirmar Senha"
+        <Input 
+          placeholder="Confirmar Senha"
+          placeholderTextColor="#7D7D7D"
           returnKeyType="next"
           value={confirPass}
           onChangeText={ (text) => setConfirPass(text)}
