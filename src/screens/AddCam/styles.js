@@ -1,3 +1,4 @@
+import { Montserrat_100Thin_Italic, Montserrat_300Light_Italic } from '@expo-google-fonts/montserrat';
 import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
@@ -10,12 +11,13 @@ export const styles = StyleSheet.create({
   buttonContainer: {
     width: '100%',
     height: 26,
-    marginTop: 700,
+    marginTop: 670,
+    marginLeft: -20
   },
-  button: {
+  buttonFlip: {
     width: 100,
     height: 35,
-    alignSelf:'center',
+    alignSelf:'flex-end',
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 15,
@@ -23,5 +25,27 @@ export const styles = StyleSheet.create({
   },
   text: {
 
+  },
+  buttonPhoto: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#141414',
+    margin: 20,
+    borderRadius: 10,
+    height: 50
+  },
+  viewModal: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    margin: 20,
+  },
+  buttonModal: {
+    margin: 10
+  },
+  image:{
+    width: '100%',
+    height: 300,
+    borderRadius: 20
   }
 });
