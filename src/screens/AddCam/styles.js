@@ -5,32 +5,38 @@ export const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  camera: {
-    flex: 1
+  viewCam:{
+    flex: 1,
+    width: '98%',
+    justifyContent: 'center',
+    alignSelf: 'center',
   },
-  buttonContainer: {
+  camera: {
+    width: '95%',
+    height: 500,
+    alignSelf: 'center',
+  },
+  viewBtn: {
     width: '100%',
-    height: 26,
-    marginTop: 670,
-    marginLeft: -20
+    height: 50,
+    marginBottom: 60,
+    flexDirection: 'row',
+    justifyContent: 'center',
   },
   buttonFlip: {
-    width: 100,
-    height: 35,
-    alignSelf:'flex-end',
+    width: 50,
+    height: 50,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 15,
+    borderRadius: 45,
     backgroundColor: '#fff' 
   },
-  text: {
-
-  },
   buttonPhoto: {
+    width: '50%',
+    marginHorizontal: 20,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#141414',
-    margin: 20,
     borderRadius: 10,
     height: 50
   },
@@ -40,12 +46,15 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     margin: 20,
   },
+  viewModalBtn: {
+    flexDirection: 'row',
+  },
   buttonModal: {
     margin: 10
   },
   image:{
     width: '100%',
-    height: 300,
+    height: 450,
     borderRadius: 20
   }
 });

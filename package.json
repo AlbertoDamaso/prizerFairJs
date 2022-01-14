@@ -23,7 +23,9 @@
     "react-native-mask-text": "^0.6.0",
     "react-native-web": "0.17.1",
     "react-native-screens": "~3.8.0",
-    "react-native-safe-area-context": "3.3.2"
+    "react-native-safe-area-context": "3.3.2",
+    "expo-permissions": "~13.0.3",
+    "expo-media-library": "~13.0.3"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9"
