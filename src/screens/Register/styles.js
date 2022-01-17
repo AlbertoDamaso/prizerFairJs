@@ -14,9 +14,8 @@ export const styles = StyleSheet.create({
     width: 115,
     height: 115,
   },
-  imgBtn: {
-  },
   areaInput: {
     width: '100%',
-  }
+  },
+
 });
