@@ -23,9 +23,7 @@ export function SignUp(){
   const { signUp } = useContext(AuthContext);
 
   function handleSignUp(){
-    alert(`${email}, ${password}, ${name}, ${zap}, ${dateN}`)
     signUp(email, password, name, zap, dateN);
-    navigation.navigate('Home');
   }
 
   function handleCamera(){

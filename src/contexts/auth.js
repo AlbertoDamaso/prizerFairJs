@@ -1,36 +1,36 @@
-import React, { useState, useEffect, createContext } from 'react';
-import firebase from '../services/firebaseConnection';
+import React, { useState, createContext, useEffect } from 'react';
+import firebaseConfig from '../services/firebaseConnection';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const AuthContext = createContext({});
 
 function AuthProvider({ children }){
     const[user, setUser] = useState(null);
-    const[loading, setLoading] = useState(true);
-    const[loadingAuth, setLoadingAuth] = useState(false);
+    const [loading, setLoading] = useState(true)
+    const [loadingAuth, setLoadingAuth] = useState(false);
 
     useEffect(()=>{
-        async function loadStorage(){
+        async function loadStorage() {
             const storageUser = await AsyncStorage.getItem('Auth_user')
 
             if(storageUser){
                 setUser(JSON.parse(storageUser))
                 setLoading(false)
-            }
+            }            
             setLoading(false)
         }
         loadStorage()
-    },[])
+    }, [])
 
     //Cadastrar pessoa
     async function signUp(email, password, name, zap, dateN){
         alert("chegou aqui!")
         setLoadingAuth(true);
-        await firebase.auth().createUserWithEmailAndPassword(email, password)
+        await firebaseConfig.auth().createUserWithEmailAndPassword(email, password)
         .then(async (value)=>{
             alert('Pessoa adicionada: '+ value.user.email);//DEBUG
             let uid = value.user.uid;
-            await firebase.database().ref('pessoas').child(uid).set({
+            await firebase.database().ref('users').child(uid).set({
                 name: name,
                 email: email,
                 dateN: dateN 
@@ -60,22 +60,22 @@ function AuthProvider({ children }){
             }
         })
     }
-
+    
     async function storageUser(data) {
-        await AsyncStorage.setItem('Auth_user', JSON.stringify(data))
+        await AsyncStorage.setItem('Auth_user', JSON.stringify(data))        
     }
 
     async function signOut(){
-        await firebase. auth().signOut();
+        await firebase.auth().signOut();
         await AsyncStorage.clear()
-        .then(()=>{
-            storageUser(null);
-        })
+            .then( ()=> {
+                setUser(null);
+            })
     }
-
+    
     return(
-        <AuthContext.Provider value={{ signed: !!user, user, loading, loadingAuth, signUp, signOut}}>
-            { children }
+        <AuthContext.Provider value={{ signed: !!user, user, loading, loadingAuth, signUp, signOut }}>
+            {children}
         </AuthContext.Provider>
     )
 }
