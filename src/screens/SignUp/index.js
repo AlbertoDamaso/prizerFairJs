@@ -1,73 +1,35 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import {
-  View, Image, Keyboard, Alert, TouchableOpacity
+  View, Image, Keyboard, TouchableOpacity, TouchableWithoutFeedback
 } from 'react-native';
-import { TouchableWithoutFeedback } from 'react-native-web';
 import addCamera from '../../assets/addCamera.png';
 import { useNavigation } from '@react-navigation/native';
-// import { MaskInput } from '../../components/MaskInput';
 import { Background } from '../../components/Background';
 import { InputDate } from '../../components/InputDate';
+import { MaskInput } from '../../components/MaskInput';
 import { Button } from '../../components/Button';
 import { Input } from '../../components/Input';
+import { AuthContext } from '../../contexts/auth';
 import { styles } from './styles';
-import firebase from '../../services/firebaseConnection';
 
-export function Register(){
+export function SignUp(){
+  const navigation = useNavigation();
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
-  const [dateN, setDateN] = useState(new Date())
   const [password, setPassword] = useState('')
-  const [confirPass, setConfirPass] = useState('')
-  const navigation = useNavigation();
+  const [zap, setZap] = useState('')
+  const [dateN, setDateN] = useState(new Date())
 
-  // function handleHome(){
-  //   navigation.navigate('Home');
-  // }
+  const { signUp } = useContext(AuthContext);
 
-  function handleSubmit(){
-    Keyboard.dismiss();
-    if(name === null){
-      alert('Nome é obrigatorio!')
-      return;
-    }
-
-    Alert.alert(
-      'Confirmando dados',
-      `Nome: ${name} \nEmail: ${email} \nData Nascimento: ${dateN}`,
-      [
-        {
-          text: 'Cancelar',
-          style: 'cancel'
-        },
-        {
-          text: 'Continuar',
-          onPress: () => handleAdd()
-        }
-      ]
-    )
-  }
-  
-  async function handleAdd(){
-    // let key = await firebase.database().ref('pessoas').push().key; Modificar Aqui para registrar!!!
-    await firebase.database().ref('pessoas').push().set({
-      nome: name,
-      email: email,
-      dateN: dateN,
-      senha: password,
-      csenha: confirPass,
-    })
-    Keyboard.dismiss();
-    setName('');
-    setEmail('');
-    setDateN('');
-    setPassword('');
-    setConfirPass('');
-    navigation.navigate('Home')
+  function handleSignUp(){
+    alert(`${email}, ${password}, ${name}, ${zap}, ${dateN}`)
+    signUp(email, password, name, zap, dateN);
+    navigation.navigate('Home');
   }
 
   function handleCamera(){
-    navigation.navigate('AddCam')
+    navigation.navigate('AddCam');
   }
 
   return (
@@ -92,15 +54,17 @@ export function Register(){
             placeholder="Nome"
             placeholderTextColor="#7D7D7D"
             returnKeyType="next"
-            onSubmitEditing={ () => Keyboard.dismiss() }
+            onSubmitEditing={ () => Keyboard.dismiss()}
             value={name}
             onChangeText={ (text) => setName(text)}
+            
           />
           <Input 
             placeholder="E-mail"
             placeholderTextColor="#7D7D7D"
             keyboardType="email-address"
             returnKeyType="next"
+            onSubmitEditing={ () => Keyboard.dismiss()}
             value={email}
             onChangeText={ (text) => setEmail(text)}
           />
@@ -117,35 +81,29 @@ export function Register(){
             cancelBtnText="Cancel"
             onDateChange={(date) => setDateN(date)}
           />
-          {/* <MaskInput 
-            placeholder="Data de Nascimento"
+          <MaskInput 
+            placeholder="WhatsApp"
             placeholderTextColor="#7D7D7D"
-            keyboardType="numeric"
             returnKeyType="next"
-            value={dateN}
-            onChangeText={ (text) => setDateN(text)}
-          /> */}
+            keyboardType="phone-pad"
+            onSubmitEditing={ () => Keyboard.dismiss()}
+            value={zap}
+            onChangeText={ (text) => setZap(text)}
+          />
           <Input 
             placeholder="Senha"
             placeholderTextColor="#7D7D7D"
             returnKeyType="next"
+            onSubmitEditing={ () => Keyboard.dismiss()}
             value={password}
             onChangeText={ (text) => setPassword(text)}
             secureTextEntry={true}
           />
-          <Input 
-            placeholder="Confirmar Senha"
-            placeholderTextColor="#7D7D7D"
-            returnKeyType="next"
-            value={confirPass}
-            onChangeText={ (text) => setConfirPass(text)}
-            secureTextEntry={true}
-          />
         </View>
         <Button 
+          onPress={handleSignUp}
           title={"Cadastrar"}
           activeOpacity={0.7}
-          onPress={handleSubmit}
         />
       </Background>
     </TouchableWithoutFeedback>

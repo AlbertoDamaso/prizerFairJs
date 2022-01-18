@@ -7,6 +7,8 @@ import { theme } from '../../global/styles/theme';
 
 import { styles } from './styles';
 
+console.disableYellowBox = true;
+
 export function InputDate({...rest}) {
   return (
     <View style={styles.areaDataN}>

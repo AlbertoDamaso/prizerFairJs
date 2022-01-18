@@ -9,6 +9,7 @@ export function Background({children}){
         <LinearGradient
             style={styles.container}
             colors={[secondary100, secondary75]}
+            
         >
             {children}
         </LinearGradient>
