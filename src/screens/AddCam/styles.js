@@ -23,16 +23,25 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
   },
-  buttonFlip: {
+  buttonAlbum: {
     width: 50,
     height: 50,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 45,
     backgroundColor: '#fff' 
+  },  
+  buttonFlip: {
+    width: 50,
+    height: 50,
+    marginRight: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 45,
+    backgroundColor: '#fff' 
   },
   buttonPhoto: {
-    width: '50%',
+    width: '40%',
     marginHorizontal: 20,
     justifyContent: 'center',
     alignItems: 'center',

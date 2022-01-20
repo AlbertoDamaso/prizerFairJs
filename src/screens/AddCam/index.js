@@ -6,6 +6,7 @@ import { FontAwesome } from '@expo/vector-icons';
 import { styles } from './styles';
 import * as Permissions from 'expo-permissions';
 import * as MediaLibrary from 'expo-media-library';
+import * as ImagePicker from 'expo-image-picker';
 
 console.disableYellowBox = true;
 
@@ -13,6 +14,8 @@ export function AddCam() {
   const camRef = useRef(null);
   const [hasPermission, setHasPermission] = useState(null);
   const [capturedPhoto, setCapturedPhoto] = useState(null);
+  const [image, setImage] = useState(null);
+  const [picture, setPicture] = useState(null)
   const [open, setOpen] = useState(false);
   const [type, setType] = useState(Camera.Constants.Type.back);
   const navigation = useNavigation();
@@ -51,16 +54,33 @@ export function AddCam() {
     .then(() => {
       alert("Salva com sucesso!");
       setOpen(false);
-      navigation.navigate('SignUp')
+      setPicture(asset.uri);//tentativa de passar uri correta, quando tirada a foto
+      navigation.navigate('SignUp', picture)
     })
     .catch (error =>{
       console.log('err', error)
     })
   }
 
+  async function openAlbum(){
+    const photo = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      aspect: [4, 3],
+      quality: 1,
+    });
+    setCapturedPhoto(photo.uri);
+    setOpen(true);    
+    setPicture(photo.uri);//tentativa de passar uri correta, quando buscada do album
+
+    if(!photo.cancelled){
+      setImage(photo.uri);
+    }
+  }
+
   function handleGoBack(){
     navigation.navigate('SignUp')
   }
+
 
   return (
     <View style={styles.container}>
@@ -73,12 +93,20 @@ export function AddCam() {
       </View>        
 
       <View style={styles.viewBtn}>
+        
         <TouchableOpacity 
           style={styles.buttonFlip} 
           onPress={handleGoBack}
         >
           <FontAwesome name="arrow-left" size={23} color="#000" ></FontAwesome>
         </TouchableOpacity>  
+
+        <TouchableOpacity 
+          style={styles.buttonAlbum} 
+          onPress={openAlbum}
+        >
+          <FontAwesome name="photo" size={23} color="#000" ></FontAwesome>
+        </TouchableOpacity> 
 
         <TouchableOpacity 
           style={styles.buttonPhoto} 
