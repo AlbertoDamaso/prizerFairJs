@@ -51,14 +51,15 @@ export function AddCam() {
     .then(() => {
       alert("Salva com sucesso!");
       setOpen(false);
+      navigation.navigate('SignUp')
     })
     .catch (error =>{
       console.log('err', error)
     })
   }
 
-  function handleRegister(){
-    navigation.navigate('Register')
+  function handleGoBack(){
+    navigation.navigate('SignUp')
   }
 
   return (
@@ -74,7 +75,7 @@ export function AddCam() {
       <View style={styles.viewBtn}>
         <TouchableOpacity 
           style={styles.buttonFlip} 
-          onPress={handleRegister}
+          onPress={handleGoBack}
         >
           <FontAwesome name="arrow-left" size={23} color="#000" ></FontAwesome>
         </TouchableOpacity>  

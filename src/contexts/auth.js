@@ -1,10 +1,12 @@
 import React, { useState, createContext, useEffect } from 'react';
-import firebaseConfig from '../services/firebaseConnection';
+import firebase from '../services/firebaseConnection';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useNavigation } from '@react-navigation/native';
 
 export const AuthContext = createContext({});
 
 function AuthProvider({ children }){
+    const navigation = useNavigation();
     const[user, setUser] = useState(null);
     const [loading, setLoading] = useState(true)
     const [loadingAuth, setLoadingAuth] = useState(false);
@@ -24,9 +26,8 @@ function AuthProvider({ children }){
 
     //Cadastrar pessoa
     async function signUp(email, password, name, zap, dateN){
-        alert("chegou aqui!")
         setLoadingAuth(true);
-        await firebaseConfig.auth().createUserWithEmailAndPassword(email, password)
+        await firebase.auth().createUserWithEmailAndPassword(email, password)
         .then(async (value)=>{
             alert('Pessoa adicionada: '+ value.user.email);//DEBUG
             let uid = value.user.uid;
@@ -39,7 +40,7 @@ function AuthProvider({ children }){
                 let data = {
                     uid: uid,
                     name: name,
-                    zap: parseFloat(zap),
+                    zap: zap,
                     email: value.user.email,
                     dateN: dateN
                 };
@@ -48,16 +49,21 @@ function AuthProvider({ children }){
                 setLoadingAuth(false);
             })
         })
-        .catch((error)=>{
+        .catch( (error) => {
             if(error.code === 'auth/weak-password'){
-                alert('Sua senha deve ter pelo menos 6 caracteres');
-                setLoadingAuth(false);
-                return;
-            }else{
-                alert('Ops, algo deu errado!');
-                setLoadingAuth(false);
-                return;
+              alert('Sua senha deve ter pelo menos 6 caracteres');
+              setLoadingAuth(false);
+              return;
             }
+            if(error.code === 'auth/invalid-email'){
+              alert('Email invalido');
+              setLoadingAuth(false);
+              return;
+            }else{
+              alert('Ops algo deu errado!');
+              setLoadingAuth(false);
+              return;
+            }      
         })
     }
     
@@ -70,6 +76,7 @@ function AuthProvider({ children }){
         await AsyncStorage.clear()
             .then( ()=> {
                 setUser(null);
+                navigation.navigate('SignUp');
             })
     }
     

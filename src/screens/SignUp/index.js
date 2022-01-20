@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react';
+import { AuthContext } from '../../contexts/auth';
 import {
-  View, Image, Keyboard, TouchableOpacity, TouchableWithoutFeedback
+  View,Text, Image, Keyboard, TouchableOpacity, TouchableWithoutFeedback
 } from 'react-native';
 import addCamera from '../../assets/addCamera.png';
 import { useNavigation } from '@react-navigation/native';
@@ -9,7 +10,6 @@ import { InputDate } from '../../components/InputDate';
 import { MaskInput } from '../../components/MaskInput';
 import { Button } from '../../components/Button';
 import { Input } from '../../components/Input';
-import { AuthContext } from '../../contexts/auth';
 import { styles } from './styles';
 
 export function SignUp(){
@@ -20,10 +20,12 @@ export function SignUp(){
   const [zap, setZap] = useState('')
   const [dateN, setDateN] = useState(new Date())
 
-  const { signUp } = useContext(AuthContext);
-
-  function handleSignUp(){
+  const {signUp, signOut}  = useContext(AuthContext);
+  
+  function handleSignUp(){  
     signUp(email, password, name, zap, dateN);
+    // alert(signUp)
+    // navigation.navigate('Home');
   }
 
   function handleCamera(){
@@ -99,10 +101,16 @@ export function SignUp(){
           />
         </View>
         <Button 
-          onPress={handleSignUp}
+          onPress={(handleSignUp)}
           title={"Cadastrar"}
           activeOpacity={0.7}
         />
+        <Text 
+          style={{fontSize:12, marginTop: 5, justifyContent: 'center', alignSelf: 'center'}}
+          onPress={()=>navigation.navigate('Home')}
+        >
+          Verificar cadastrados!
+        </Text>
       </Background>
     </TouchableWithoutFeedback>
   );

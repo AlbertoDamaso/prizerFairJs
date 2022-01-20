@@ -1,12 +1,21 @@
-import React from "react";
-import { NavigationContainer } from '@react-navigation/native';
+import React, { useContext } from "react";
+import { View, ActivityIndicator } from 'react-native';
 import { AppRoutes } from "./app.routes";
+import { AuthContext } from "../contexts/auth";
+import { Home } from "../screens/Home";
 
 export function Routes(){
+    const { signed, loading } = useContext(AuthContext);
+
+    if(loading){
+        return(
+            <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+                <ActivityIndicator size="large" color="#141414"/>
+            </View>
+        )
+    }
+
     return(
-        <NavigationContainer>
-            {/* { user.id ? <AppRoutes/> : <SignIn/>} */}
-            <AppRoutes/>
-        </NavigationContainer>
+        signed ? <Home/> : <AppRoutes/> 
     )
 }
