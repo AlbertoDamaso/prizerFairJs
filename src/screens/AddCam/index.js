@@ -10,15 +10,14 @@ import * as ImagePicker from 'expo-image-picker';
 
 console.disableYellowBox = true;
 
-export function AddCam() {
+export function AddCam({navigation}) {
   const camRef = useRef(null);
   const [hasPermission, setHasPermission] = useState(null);
   const [capturedPhoto, setCapturedPhoto] = useState(null);
   const [image, setImage] = useState(null);
-  const [picture, setPicture] = useState(null)
   const [open, setOpen] = useState(false);
   const [type, setType] = useState(Camera.Constants.Type.back);
-  const navigation = useNavigation();
+  // const navigation = useNavigation();
 
   useEffect(() => {
     (async () => {
@@ -45,7 +44,6 @@ export function AddCam() {
       const data = await camRef.current.takePictureAsync();
       setCapturedPhoto(data.uri);
       setOpen(true);
-      //console.log(data.uri)
     }
   }
 
@@ -54,8 +52,6 @@ export function AddCam() {
     .then(() => {
       alert("Salva com sucesso!");
       setOpen(false);
-      setPicture(asset.uri);//tentativa de passar uri correta, quando tirada a foto
-      navigation.navigate('SignUp', picture)
     })
     .catch (error =>{
       console.log('err', error)
@@ -70,7 +66,6 @@ export function AddCam() {
     });
     setCapturedPhoto(photo.uri);
     setOpen(true);    
-    setPicture(photo.uri);//tentativa de passar uri correta, quando buscada do album
 
     if(!photo.cancelled){
       setImage(photo.uri);
@@ -150,6 +145,13 @@ export function AddCam() {
               >
                 <FontAwesome name="upload" size={50} color="#121212"/>
               </TouchableOpacity>
+
+              <TouchableOpacity 
+                style={styles.buttonModal}
+                onPress={ () => navigation.navigate('SignUp', {picture: capturedPhoto}) }
+              >
+                <FontAwesome name="send" size={50} color="#121212"/>
+              </TouchableOpacity>              
             </View>
 
             <Image

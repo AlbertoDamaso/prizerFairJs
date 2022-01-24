@@ -1,3 +1,4 @@
+import { Montserrat_500Medium } from '@expo-google-fonts/montserrat';
 import { StyleSheet } from 'react-native';
 import { theme } from '../../global/styles/theme';
 
@@ -11,7 +12,12 @@ export const styles = StyleSheet.create({
     marginTop: 115,
     marginBottom: 45
   },
-  image: {
+  comImage:{
+    width: 100,
+    height: 110,
+    borderRadius: 90,
+  },
+  semImage: {
     width: 115,
     height: 115,
   },

@@ -1,4 +1,4 @@
-import React, { useState, createContext, useEffect } from 'react';
+import React, { useState, createContext } from 'react';
 import firebase from '../services/firebaseConnection';
 import { useNavigation } from '@react-navigation/native';
 
@@ -10,7 +10,7 @@ function AuthProvider({ children }){
     const [loadingAuth, setLoadingAuth] = useState(false);
 
     //Cadastrar pessoa
-    async function signUp(email, password, name, zap, dateN){
+    async function signUp(email, password, name, zap, dateN, image){
         setLoadingAuth(true);
         await firebase.auth().createUserWithEmailAndPassword(email, password)
         .then(async (value)=>{
@@ -19,7 +19,8 @@ function AuthProvider({ children }){
             await firebase.database().ref('users').child(uid).set({
                 name: name,
                 email: email,
-                dateN: dateN 
+                dateN: dateN,
+                image: image 
             })
             .then(()=>{
                 let data = {
@@ -27,7 +28,8 @@ function AuthProvider({ children }){
                     name: name,
                     zap: zap,
                     email: value.user.email,
-                    dateN: dateN
+                    dateN: dateN,
+                    image: image
                 };
                 setUser(data);
                 setLoadingAuth(false);

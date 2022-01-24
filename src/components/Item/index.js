@@ -4,7 +4,6 @@ import {
   Text,
   Image,
 } from 'react-native';
-import photoperfil from '../../assets/PhotoPerfil-8.png'
 import { styles } from './styles';
 
 
@@ -13,9 +12,12 @@ export function Item({ data }){
     <View style={styles.container}>
       <View style={styles.areaImg}>
         <Image
-          source={photoperfil}
+          source={{uri:data.image}}
           style={styles.image}
         />  
+        <Text>
+          1.{data.image}
+        </Text>
       </View>
       <View style={styles.areaTxt}>
         <Text style={styles.name}>

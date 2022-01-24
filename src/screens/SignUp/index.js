@@ -12,20 +12,19 @@ import { Button } from '../../components/Button';
 import { Input } from '../../components/Input';
 import { styles } from './styles';
 
-export function SignUp(){
-  const navigation = useNavigation();
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [zap, setZap] = useState('')
-  const [dateN, setDateN] = useState(new Date())
+export function SignUp({ route }){
 
-  const {signUp, signOut}  = useContext(AuthContext);
+  const navigation = useNavigation();
+  const [zap, setZap] = useState('');
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [dateN, setDateN] = useState(new Date());
+  const {signUp}  = useContext(AuthContext);
+  const image = route.params?.picture;
   
   function handleSignUp(){  
-    signUp(email, password, name, zap, dateN);
-    // alert(signUp)
-    // navigation.navigate('Home');
+    signUp(email, password, name, zap, dateN, image);
   }
 
   function handleCamera(){
@@ -41,11 +40,20 @@ export function SignUp(){
             style={styles.imgBtn}
             onPress={handleCamera}
           >
-          <Image
-            source={addCamera}
-            style={styles.image}
-            resizeMode="stretch"
-          />        
+          { image != null && image != ''
+            ?
+            <Image
+              source={{uri:image}}
+              style={styles.comImage}
+              resizeMode="stretch"
+            />
+            :        
+            <Image
+              source={addCamera}
+              style={styles.semImage}
+              resizeMode="stretch"
+            />
+          }
           </TouchableOpacity>
         </View>
 
