@@ -28,7 +28,8 @@ export function Home(){
             key: childItem.key,
             name: childItem.val().name,
             email: childItem.val().email,
-            dateN: childItem.val().dateN
+            dateN: childItem.val().dateN,
+            image: childItem.val().image
           };
 
           setUser(oldArray => [...oldArray, list]. reverse());

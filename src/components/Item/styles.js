@@ -22,6 +22,7 @@ export const styles = StyleSheet.create({
   image: {
     width:  73,
     height: 73,
+    borderRadius: 45
   },
   areaTxt: {
     marginTop: 20,

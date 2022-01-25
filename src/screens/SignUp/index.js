@@ -71,6 +71,7 @@ export function SignUp({ route }){
             placeholder="E-mail"
             placeholderTextColor="#7D7D7D"
             keyboardType="email-address"
+            autoCapitalize='none'
             returnKeyType="next"
             onSubmitEditing={ () => Keyboard.dismiss()}
             value={email}
@@ -102,6 +103,8 @@ export function SignUp({ route }){
             placeholder="Senha"
             placeholderTextColor="#7D7D7D"
             returnKeyType="next"
+            keyboardType="numeric"
+            isSecure={true}
             onSubmitEditing={ () => Keyboard.dismiss()}
             value={password}
             onChangeText={ (text) => setPassword(text)}
